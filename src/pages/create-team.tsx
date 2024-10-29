@@ -8,14 +8,20 @@ export default function CreateTeam() {
   const handleCreateTeam = async () => {
     // Parse the input
     const lines = input.trim().split("\n");
-    const teamName = lines[0] || ""; // First line is the team name
+    const teamNameLine = lines[0] || ""; // First line is the team name
     const players = lines.slice(1); // Subsequent lines are player names
-    const criteriaNotMet = !teamName || players.length < 1 || players.length > 2;
+      // Validate team name and player count
+      const criteriaNotMet =
+      !teamNameLine.startsWith("Team ") || 
+      players.length < 1 || 
+      players.length > 2;
 
     if (criteriaNotMet) {
-      setMessage("Please enter a team name and 1 or 2 player names.");
+      setMessage("Please ensure the first line starts with 'Team ' and enter 1 or 2 player names.");
       return;
     }
+
+    const teamName = teamNameLine.replace("Team ", "").trim();
 
     try {
       const response = await axios.post("/api/teams/create", {
