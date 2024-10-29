@@ -9,7 +9,7 @@ interface StartGameRequest extends NextApiRequest {
   };
 }
 
-export default async function handler(
+export default async function startGame(
   req: StartGameRequest,
   res: NextApiResponse<{ gameId: number } | { message: string }>
 ) {

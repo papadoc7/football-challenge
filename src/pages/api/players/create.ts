@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { openDb } from "../../../db";
+import { openDb } from "@/db";
 
 interface CreatePlayerRequest extends NextApiRequest {
   body: { name: string };

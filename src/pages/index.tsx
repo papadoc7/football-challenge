@@ -43,6 +43,10 @@ const styles = {
     textAlign: "center" as "center",
     padding: "24px",
     fontFamily: "Arial, sans-serif",
+    minHeight: "100vh", // Ensures full page height
+    backgroundImage: "url('../../../assets/images/football_league.png')", // Replace with actual image path
+    backgroundSize: "cover", // Makes the image cover the entire background
+    backgroundPosition: "center",
   },
   menu: {
     marginTop: "24px",
