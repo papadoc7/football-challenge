@@ -5,7 +5,7 @@ export async function openDb(): Promise<
   Database<sqlite3.Database, sqlite3.Statement>
 > {
   return open({
-    filename: "../table-football-challenge.db",
+    filename: "./table-football-challenge.db",
     driver: sqlite3.Database,
   });
 }
