@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function CreateTeam() {
-  const [input, setInput] = useState<string>(""); // State for the textarea input
-  const [message, setMessage] = useState<string>(""); // State for displaying messages
+  const [input, setInput] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleCreateTeam = async () => {
     // Parse the input
@@ -38,7 +38,7 @@ export default function CreateTeam() {
   return (
     <div style={styles.container}>
       <h1>Create Teams</h1>
-      <p>Feature to create teams with one or two players will go here.</p>
+      <p>Put the team name and the player(s) in the textarea below.</p>
       <textarea
         rows={6}
         placeholder="Enter team name followed by player names (one per line)"
@@ -62,17 +62,18 @@ const styles = {
     textAlign: "center" as "center",
   },
   textarea: {
-    width: "100%",
-    maxWidth: "600px",
+    width: "100%", 
     padding: "10px",
-    marginTop: "10px",
+    marginTop: "16px",
     fontSize: "16px",
+    marginBottom: "16px",
   },
   button: {
     marginTop: "10px",
     padding: "10px 20px",
     fontSize: "16px",
     cursor: "pointer",
+    marginBottom: "20px",
   },
   message: {
     marginTop: "20px",
