@@ -1,8 +1,93 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface TeamStats {
+  name: string;
+  games_played: number;
+  wins: number;
+}
+
 export default function Dashboard() {
+  const [teamStats, setTeamStats] = useState<TeamStats[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTeamStats = async () => {
+      try {
+        const response = await axios.get("/api/dashboard");
+        setTeamStats(response.data);
+      } catch (err) {
+        console.error("Error fetching team statistics:", err);
+        setError("Failed to load team statistics. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeamStats();
+  }, []);
+
+  if (loading) {
+    return <p>Loading team statistics...</p>;
+  }
+
+  if (error) {
+    return <p style={styles.errorMessage}>{error}</p>;
+  }
+
   return (
-    <div style={{ padding: "24px", textAlign: "center" }}>
+    <div style={styles.container}>
       <h1>Dashboard</h1>
       <p>View team and individual player statistics.</p>
+
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th style={styles.tableHeader}>Team/Player Name</th>
+            <th style={styles.tableHeader}>Games Played</th>
+            <th style={styles.tableHeader}>Wins</th>
+          </tr>
+        </thead>
+        <tbody>
+          {teamStats.map((team) => (
+            <tr key={team.name} style={styles.tableRow}>
+              <td style={styles.tableCell}>{team.name}</td>
+              <td style={styles.tableCell}>{team.games_played}</td>
+              <td style={styles.tableCell}>{team.wins}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    padding: "24px",
+    textAlign: "center" as "center",
+  },
+  table: {
+    width: "100%",
+    maxWidth: "600px",
+    margin: "20px auto",
+    borderCollapse: "collapse" as "collapse",
+  },
+  tableHeader: {
+    border: "1px solid #ddd",
+    padding: "8px",
+    backgroundColor: "#f4f4f4",
+  },
+  tableRow: {
+    border: "1px solid #ddd",
+  },
+  tableCell: {
+    border: "1px solid #ddd",
+    padding: "8px",
+  },
+  errorMessage: {
+    color: "red",
+    marginTop: "20px",
+  },
+};
