@@ -22,6 +22,10 @@ The project also includes a DB file called `table-football-challenge.db` for dem
 
 This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Test
+
+Tests can be run by using `yarn test` in your terminal. You can use `.spec.ts(x)` as a suffix to indicate that a file contains tests.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
