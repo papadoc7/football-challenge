@@ -48,6 +48,7 @@ const styles = {
     backgroundSize: "contain",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+    backgroundPositionY: "80px",
     margin: "0 auto",
   },
   menu: {

@@ -25,7 +25,7 @@ export default function NewGame() {
         team_2_id: teamB,
         date_played: gameDate,
       });
-      console.log("Game started:", response.data);
+      // console.log("Game started:", response.data);
       alert(`Game has been started! Game ID: ${response.data.gameId}`);
     } catch (error) {
       console.error("Error starting game:", error);
