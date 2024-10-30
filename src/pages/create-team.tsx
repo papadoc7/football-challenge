@@ -27,6 +27,9 @@ export default function CreateTeam() {
       });
       // console.log("Team created:", response.data);
       setMessage(`Team created! Team ID: ${response.data.teamId}`);
+      setTimeout(() => {
+        setInput("");
+      }, 500);
     } catch (error) {
       console.error("Error creating team:", error);
       setMessage("Failed to create team. Please try again.");
