@@ -37,16 +37,18 @@ export default function Home() {
 
 const styles = {
   container: {
-    display: "flex",
+    display: "block",
     flexDirection: "column" as "column",
     alignItems: "center",
     textAlign: "center" as "center",
     padding: "24px",
     fontFamily: "Arial, sans-serif",
-    minHeight: "100vh", // Ensures full page height
-    backgroundImage: "url('../../../assets/images/football_league.png')", // Replace with actual image path
-    backgroundSize: "cover", // Makes the image cover the entire background
+    minHeight: "100vh",
+    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/images/football_league.png')`,
+    backgroundSize: "contain",
     backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    margin: "0 auto",
   },
   menu: {
     marginTop: "24px",
@@ -56,8 +58,9 @@ const styles = {
     padding: 0,
   },
   link: {
-    color: "#0070f3",
+    color: "#1c00f3",
     textDecoration: "none",
-    fontSize: "16px",
+    fontSize: "20px",
+    fontWeight: 700,
   },
 };
