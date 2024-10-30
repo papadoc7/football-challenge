@@ -39,7 +39,7 @@ describe("NewGame Component", () => {
       });
     });
     expect(window.alert).toHaveBeenCalledWith(
-      expect.stringContaining("Game has been started! Game ID:"),
+      expect.stringContaining("Game has been started! Game ID: 12345"),
     );
   });
 

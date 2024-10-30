@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div style={styles.container}>
       <h1>Welcome to the Football League App!</h1>
-      <p>Track scores, create teams, and view player statistics with ease.</p>
+      <p>Track scores, create teams/players, and view teams/players statistics with ease.</p>
 
       <div style={styles.menu}>
         <h2>Menu</h2>

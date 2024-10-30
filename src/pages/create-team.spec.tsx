@@ -15,7 +15,7 @@ describe("CreateTeam Component", () => {
 
     // Input with incorrect format
     fireEvent.change(
-      screen.getByPlaceholderText("Enter team name followed by player names (one per line)"),
+      screen.getByPlaceholderText("Enter team name followed by player name(s) (one per line)"),
       {
         target: { value: "Football Team\nPlayer 1" },
       },
@@ -35,7 +35,7 @@ describe("CreateTeam Component", () => {
 
     // Input with team name correctly formatted but too many players
     fireEvent.change(
-      screen.getByPlaceholderText("Enter team name followed by player names (one per line)"),
+      screen.getByPlaceholderText("Enter team name followed by player name(s) (one per line)"),
       {
         target: { value: "Team Football\nPlayer 1\nPlayer 2\nPlayer 3" },
       },
@@ -57,7 +57,7 @@ describe("CreateTeam Component", () => {
 
     // Input with correct team format and player count
     fireEvent.change(
-      screen.getByPlaceholderText("Enter team name followed by player names (one per line)"),
+      screen.getByPlaceholderText("Enter team name followed by player name(s) (one per line)"),
       {
         target: { value: "Team Football\nPlayer 1\nPlayer 2" },
       },

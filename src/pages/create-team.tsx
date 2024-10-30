@@ -39,7 +39,7 @@ export default function CreateTeam() {
       <p>Put the team name and the player(s) in the textarea below.</p>
       <textarea
         rows={6}
-        placeholder="Enter team name followed by player names (one per line)"
+        placeholder="Enter team name followed by player name(s) (one per line)"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         style={styles.textarea}
