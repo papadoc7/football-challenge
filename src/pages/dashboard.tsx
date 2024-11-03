@@ -5,6 +5,12 @@ interface TeamStats {
   name: string;
   games_played: number;
   wins: number;
+  losses: number;
+  draws: number;
+  win_ratio: number;
+  goals_for: number;
+  goals_against: number;
+  goal_difference: number;
 }
 
 export default function Dashboard() {
@@ -47,6 +53,12 @@ export default function Dashboard() {
             <th style={styles.tableHeader}>Team/Player Name</th>
             <th style={styles.tableHeader}>Games Played</th>
             <th style={styles.tableHeader}>Wins</th>
+            <th style={styles.tableHeader}>Losses</th>
+            <th style={styles.tableHeader}>Draws</th>
+            <th style={styles.tableHeader}>Win Ratio</th>
+            <th style={styles.tableHeader}>GF</th>
+            <th style={styles.tableHeader}>GA</th>
+            <th style={styles.tableHeader}>GD</th>
           </tr>
         </thead>
         <tbody>
@@ -55,6 +67,12 @@ export default function Dashboard() {
               <td style={styles.tableCell}>{team.name}</td>
               <td style={styles.tableCell}>{team.games_played}</td>
               <td style={styles.tableCell}>{team.wins}</td>
+              <td style={styles.tableCell}>{team.losses}</td>
+              <td style={styles.tableCell}>{team.draws}</td>
+              <td style={styles.tableCell}>{(team.win_ratio * 100).toFixed(2)}%</td>
+              <td style={styles.tableCell}>{team.goals_for}</td>
+              <td style={styles.tableCell}>{team.goals_against}</td>
+              <td style={styles.tableCell}>{team.goal_difference}</td>
             </tr>
           ))}
         </tbody>
@@ -70,7 +88,7 @@ const styles = {
   },
   table: {
     width: "100%",
-    maxWidth: "600px",
+    maxWidth: "800px",
     margin: "20px auto",
     borderCollapse: "collapse" as "collapse",
   },
