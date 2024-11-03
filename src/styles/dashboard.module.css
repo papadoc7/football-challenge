@@ -1,0 +1,52 @@
+.container {
+  padding: 24px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: #f4f4f4;
+}
+
+.tableRow {
+  border: 1px solid #ddd;
+}
+
+.tableCell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 20px;
+}
+
+.expandContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.expandButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #0070f3;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.plusIcon {
+  font-size: 20px;
+  margin-right: 8px;
+}

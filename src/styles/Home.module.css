@@ -166,3 +166,38 @@ a.secondary {
     filter: invert();
   }
 }
+
+.container {
+  display: block;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.5)
+  ),
+  url("/images/football_league.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position-y: 80px;
+  margin: 0 auto;
+}
+
+.menu {
+  margin-top: 24px;
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+}
+
+.link {
+  color: #1c00f3;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+}

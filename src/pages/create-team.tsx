@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import commonStyles from "../styles/Common.module.css";
+import styles from "../styles/CreateTeam.module.css";
 
 export default function CreateTeam() {
   const [input, setInput] = useState<string>("");
@@ -10,6 +12,7 @@ export default function CreateTeam() {
     const lines = input.trim().split("\n");
     const teamNameLine = lines[0] || ""; // First line is the team name
     const players = lines.slice(1); // Subsequent lines are player names
+
     // Validate team name and player(s) count
     const criteriaNotMet =
       !teamNameLine.startsWith("Team ") || players.length < 1 || players.length > 2;
@@ -37,7 +40,7 @@ export default function CreateTeam() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       <h1>Create Teams</h1>
       <p>Put the team name and the player(s) in the textarea below.</p>
       <textarea
@@ -45,45 +48,16 @@ export default function CreateTeam() {
         placeholder="Enter team name followed by player name(s) (one per line)"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        style={styles.textarea}
+        className={styles.textarea}
       />
-      <button onClick={handleCreateTeam} style={styles.button}>
+      <button onClick={handleCreateTeam} className={commonStyles.button}>
         Create Team
       </button>
       {message && (
-        <p style={message.startsWith("Please") ? styles.errorMessage : styles.message}>{message}</p>
+        <p className={message.startsWith("Please") ? styles.errorMessage : styles.message}>
+          {message}
+        </p>
       )}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    padding: "24px",
-    textAlign: "center" as "center",
-  },
-  textarea: {
-    width: "100%",
-    padding: "10px",
-    marginTop: "16px",
-    fontSize: "16px",
-    marginBottom: "16px",
-  },
-  button: {
-    marginTop: "10px",
-    padding: "10px 20px",
-    fontSize: "16px",
-    cursor: "pointer",
-    marginBottom: "20px",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "16px",
-    color: "green",
-  },
-  errorMessage: {
-    marginTop: "20px",
-    fontSize: "16px",
-    color: "red",
-  },
-};
