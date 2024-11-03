@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [teamStats, setTeamStats] = useState<TeamStats[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchTeamStats = async () => {
@@ -42,6 +43,8 @@ export default function Dashboard() {
     return <p style={styles.errorMessage}>{error}</p>;
   }
 
+  const visibleTeams = expanded ? teamStats : teamStats.slice(0, 10);
+
   return (
     <div style={styles.container}>
       <h1>Dashboard</h1>
@@ -62,7 +65,7 @@ export default function Dashboard() {
           </tr>
         </thead>
         <tbody>
-          {teamStats.map((team) => (
+          {visibleTeams.map((team) => (
             <tr key={team.name} style={styles.tableRow}>
               <td style={styles.tableCell}>{team.name}</td>
               <td style={styles.tableCell}>{team.games_played}</td>
@@ -77,6 +80,14 @@ export default function Dashboard() {
           ))}
         </tbody>
       </table>
+
+      {!expanded && teamStats.length > 10 && (
+        <div style={styles.expandContainer}>
+          <button onClick={() => setExpanded(true)} style={styles.expandButton}>
+            <span style={styles.plusIcon}>+</span> Expand to see the rest of the teams stats
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -107,5 +118,23 @@ const styles = {
   errorMessage: {
     color: "red",
     marginTop: "20px",
+  },
+  expandContainer: {
+    marginTop: "20px",
+    display: "flex",
+    justifyContent: "center",
+  },
+  expandButton: {
+    cursor: "pointer",
+    backgroundColor: "transparent",
+    border: "none",
+    color: "#0070f3",
+    fontSize: "16px",
+    display: "flex",
+    alignItems: "center",
+  },
+  plusIcon: {
+    fontSize: "20px",
+    marginRight: "8px",
   },
 };
