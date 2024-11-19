@@ -1,38 +1,48 @@
 import Link from "next/link";
+import { Button, Typography, Container, Box } from "@mui/material";
 import commonStyles from "../styles/Common.module.css";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
-    <div className={`${styles.container} ${commonStyles.textCenter}`}>
-      <h1>Welcome to the Football League App!</h1>
-      <p>Track scores, create teams/players, and view teams/players statistics with ease.</p>
+    <Container maxWidth="sm" className={`${styles.container} ${commonStyles.textCenter}`}>
+      <Box mt={4}>
+        <Typography variant="h3" gutterBottom>
+          Welcome to the Football League App!
+        </Typography>
+        <Typography variant="h6" paragraph>
+          Track scores, create teams/players, and view teams/players statistics with ease.
+        </Typography>
 
-      <div className={styles.menu}>
-        <h2>Menu</h2>
-        <ul className={styles.menuList}>
-          <li>
-            <Link href="/new-game" className={styles.link}>
-              Start a New Game
+        <Box mt={3}>
+          <Typography variant="h5" gutterBottom>
+            Menu
+          </Typography>
+
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Link href="/new-game" passHref>
+              <Button variant="contained" color="primary" fullWidth>
+                Start a New Game
+              </Button>
             </Link>
-          </li>
-          <li>
-            <Link href="/result" className={styles.link}>
-              Enter Completed Game Result
+            <Link href="/result" passHref>
+              <Button variant="contained" color="secondary" fullWidth>
+                Enter Completed Game Result
+              </Button>
             </Link>
-          </li>
-          <li>
-            <Link href="/create-team" className={styles.link}>
-              Create Teams
+            <Link href="/create-team" passHref>
+              <Button variant="outlined" color="primary" fullWidth>
+                Create Teams
+              </Button>
             </Link>
-          </li>
-          <li>
-            <Link href="/dashboard" className={styles.link}>
-              View Dashboard
+            <Link href="/dashboard" passHref>
+              <Button variant="outlined" color="secondary" fullWidth>
+                View Dashboard
+              </Button>
             </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 }
