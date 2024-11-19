@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import commonStyles from "../styles/Common.module.css";
 import styles from "../styles/CreateTeam.module.css";
+import BackLink from "@/components/BackLink";
 
 export default function CreateTeam() {
   const [input, setInput] = useState<string>("");
@@ -40,24 +41,27 @@ export default function CreateTeam() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>Create Teams</h1>
-      <p>Put the team name and the player(s) in the textarea below.</p>
-      <textarea
-        rows={6}
-        placeholder="Enter team name followed by player name(s) (one per line)"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className={styles.textarea}
-      />
-      <button onClick={handleCreateTeam} className={commonStyles.button}>
-        Create Team
-      </button>
-      {message && (
-        <p className={message.startsWith("Please") ? styles.errorMessage : styles.message}>
-          {message}
-        </p>
-      )}
-    </div>
+    <BackLink>
+      <div className={styles.container}>
+        <h1>Create Teams</h1>
+        <p>Put the team name and the player(s) in the textarea below.</p>
+        <textarea
+          rows={6}
+          placeholder="Enter team name followed by player name(s) (one per line)"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className={styles.textarea}
+        />
+        {/* second text area gia paixti */}
+        <button onClick={handleCreateTeam} className={commonStyles.button}>
+          Create Team
+        </button>
+        {message && (
+          <p className={message.startsWith("Please") ? styles.errorMessage : styles.message}>
+            {message}
+          </p>
+        )}
+      </div>
+    </BackLink>
   );
 }

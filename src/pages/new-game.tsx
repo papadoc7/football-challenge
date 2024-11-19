@@ -1,30 +1,56 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
+import BackLink from "@/components/BackLink";
 import styles from "../styles/NewGame.module.css";
 
-/**
- * Get the current date in "dd-MM-yyyy" format.
- */
-const getTodayDate = () => format(new Date(), "dd-MM-yyyy");
+const getTodayDate = () => format(new Date(), "yyyy-MM-dd"); // Update date format to match API expectation
+
+interface Team {
+  id: number;
+  name: string;
+}
 
 export default function NewGame() {
   const [gameDate, setGameDate] = useState<string>("");
-  const [teamA, setTeamA] = useState<number>(1);
-  const [teamB, setTeamB] = useState<number>(2);
+  const [teamA, setTeamA] = useState<number | null>(null);
+  const [teamB, setTeamB] = useState<number | null>(null);
+  const [scoreTeamA, setScoreTeamA] = useState<number>(0);
+  const [scoreTeamB, setScoreTeamB] = useState<number>(0);
+  const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
     setGameDate(getTodayDate());
+
+    // Fetch all teams
+    const fetchTeams = async () => {
+      try {
+        const response = await axios.get("/api/teams");
+        setTeams(response.data);
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+        alert("Failed to fetch teams. Please try again later.");
+      }
+    };
+
+    fetchTeams();
   }, []);
 
   const handleStartGame = async () => {
+    if (!teamA || !teamB) {
+      alert("Please select both teams.");
+      return;
+    }
+
     try {
       const response = await axios.post("/api/games/start", {
         team_1_id: teamA,
         team_2_id: teamB,
         date_played: gameDate,
+        final_score_team_1: scoreTeamA,
+        final_score_team_2: scoreTeamB,
+        is_active: 0, // match has ended
       });
-      // console.log("Game started:", response.data);
       alert(`Game has been started! Game ID: ${response.data.gameId}`);
     } catch (error) {
       console.error("Error starting game:", error);
@@ -33,48 +59,90 @@ export default function NewGame() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2>New Game</h2>
-      <p>Game Date: {gameDate}</p>
+    <BackLink>
+      <div className={styles.container}>
+        <h2>New Game</h2>
+        <p>Game Date: {gameDate}</p>
 
-      <div className={styles.inputContainer}>
-        <label>
-          <span>Example: 1 (for Team 1)</span>
-          <input
-            type="text"
-            value={teamA}
-            onChange={(e) => setTeamA(Number(e.target.value))}
-            placeholder="Enter ID of first team"
-            className={styles.input}
-          />
-        </label>
+        <div className={styles.inputContainer}>
+          <label>
+            Team 1:{" "}
+            <select
+              value={teamA ?? ""}
+              onChange={(e) => setTeamA(Number(e.target.value))}
+              className={styles.input}
+            >
+              <option value="" disabled>
+                Select Team 1
+              </option>
+              {teams.map((team) => (
+                <option key={team.id} value={team.id}>
+                  {team.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <label>
-          <span>Example: 2 (for Team 2)</span>
-          <input
-            type="text"
-            value={teamB}
-            onChange={(e) => setTeamB(Number(e.target.value))}
-            placeholder="Enter ID of second team"
-            className={styles.input}
-          />
-        </label>
-      </div>
-
-      <div className={styles.teamsContainer}>
-        <div className={styles.team}>
-          <h3>{teamA}</h3>
-          <p>Score: 0</p>
+          <label>
+            Team 2:{" "}
+            <select
+              value={teamB ?? ""}
+              onChange={(e) => setTeamB(Number(e.target.value))}
+              className={styles.input}
+            >
+              <option value="" disabled>
+                Select Team 2
+              </option>
+              {teams.map((team) => (
+                <option key={team.id} value={team.id}>
+                  {team.name}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
-        <div className={styles.team}>
-          <h3>{teamB}</h3>
-          <p>Score: 0</p>
-        </div>
-      </div>
 
-      <button onClick={handleStartGame} className={styles.button}>
-        Start Game
-      </button>
-    </div>
+        <div className={styles.teamsContainer}>
+          <div className={styles.team}>
+            <h3>{teamA ? teams.find((t) => t.id === teamA)?.name : "Team 1"}</h3>
+            <label>
+              Score:
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={scoreTeamA === 0 ? "" : scoreTeamA}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  setScoreTeamA(value >= 0 ? value : 0);
+                }}
+                className={styles.input}
+              />
+            </label>
+          </div>
+          <div className={styles.team}>
+            <h3>{teamB ? teams.find((t) => t.id === teamB)?.name : "Team 2"}</h3>
+            <label>
+              Score:
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={scoreTeamB === 0 ? "" : scoreTeamB}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  setScoreTeamB(value >= 0 ? value : 0);
+                }}
+                className={styles.input}
+              />
+            </label>
+          </div>
+        </div>
+
+        <button onClick={handleStartGame} className={styles.button}>
+          Start Game
+        </button>
+      </div>
+    </BackLink>
   );
 }
